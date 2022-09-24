@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -56,8 +57,36 @@ class AuthController extends Controller
     {
         
     }   
-    public function login() 
+    public function login(Request $request) 
     {
+        if(!$request->has('password')){
+            
+            return response()->json(['Password Required', 401]);
+        }
+        if(!$request->has('email')){
+            return response()->json(['Email Required', 401]);
+        }
+
+        $data = $request->all();
         
+        Validator::make($data, [
+            'email' => 'required',
+            'password' => 'required'
+        ])->validate();
+
+        try{
+
+            $user = User::where('email', $data['email'])->first();
+
+            if(!$user || !Hash::check($data['password'], $user->password)) {
+                return response()->json('Incorrect Credentials');
+            }
+            $token = $user->createToken($data['email']);
+
+            return response()->json($token, 200);
+
+        } catch (\Exception $e) {
+            return response()->json($e);
+        }
     }   
 }
