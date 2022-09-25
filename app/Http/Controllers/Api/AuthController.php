@@ -83,7 +83,7 @@ class AuthController extends Controller
             }
             $token = $user->createToken($data['email']);
 
-            return response()->json($token, 200);
+            return response()->json(['token' => $token->plainTextToken], 200);
 
         } catch (\Exception $e) {
             return response()->json($e);
