@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthRequest;
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +16,7 @@ class AuthController extends Controller
     {
         $this->user = $user;
     }
-    public function show(Request $request) 
+    public function show() 
     {
 
     }   
@@ -22,7 +24,7 @@ class AuthController extends Controller
     {
         
     }   
-    public function store(Request $request) 
+    public function store(UserRequest $request) 
     {
         $data = $request->all();
 
@@ -35,12 +37,6 @@ class AuthController extends Controller
         if(!$request->has('email')){
             return response()->json(['Email Required', 401]);
         }
-
-        Validator::make($data, [
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required'
-        ])->validate();
 
         try{
 
@@ -57,10 +53,9 @@ class AuthController extends Controller
     {
         
     }   
-    public function login(Request $request) 
+    public function login(AuthRequest $request) 
     {
-        if(!$request->has('password')){
-            
+        if(!$request->has('password')){  
             return response()->json(['Password Required', 401]);
         }
         if(!$request->has('email')){
@@ -69,11 +64,6 @@ class AuthController extends Controller
 
         $data = $request->all();
         
-        Validator::make($data, [
-            'email' => 'required',
-            'password' => 'required'
-        ])->validate();
-
         try{
 
             $user = User::where('email', $data['email'])->first();
