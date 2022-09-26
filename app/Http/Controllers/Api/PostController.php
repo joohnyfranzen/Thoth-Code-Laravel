@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -27,14 +28,11 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $data = $request->all();
-
-        if(!$data.['title'] || !$data.['slug'] || $data.['content'])
-        {
-            return response()->json('All field must be filleds');
-        }
-
+        
         try{
-            $post = $this->post->create($data);
+
+            $post = Auth::user()->post()->create($data);
+
 
             return response()->json($post);
 
