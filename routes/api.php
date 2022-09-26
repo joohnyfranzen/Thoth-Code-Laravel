@@ -20,21 +20,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Login Route
+// Login unprotected Route
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
-// Register Route
+// Register unprotected Route
 Route::post('user', [AuthController::class, 'store'])->name('user');
 
 // Post unprotected Routes
-Route::get('post', [PostControlller::class, 'index'])->name('post');
-Route::get('post/:id', [PostControlller::class, 'show'])->name('post');
+Route::get('post', [PostController::class, 'index'])->name('post');
+Route::get('post/:id', [PostController::class, 'show'])->name('post');
 
 // Protected Routes
 Route::middleware('auth:sanctum')->group(function() {
 
     // Post Resource Routes
-    Route::Resource('post', PostController::class)->except('index', 'show', 'create', 'edit');
-
-    
+    Route::resource('/post', PostController::class)->except('index', 'show', 'create', 'edit', 'store');
 });
