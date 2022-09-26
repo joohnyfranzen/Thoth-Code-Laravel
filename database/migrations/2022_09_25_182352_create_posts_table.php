@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('content');
-            $table->smallInteger('star')->nullable();
+            $table->tinyInteger('star')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
 
