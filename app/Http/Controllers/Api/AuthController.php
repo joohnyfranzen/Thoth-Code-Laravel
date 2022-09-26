@@ -24,6 +24,7 @@ class AuthController extends Controller
     }   
     public function store(UserRequest $request) 
     {
+
         $data = $request->all();
 
         if(!$request->has('password')){
@@ -40,7 +41,10 @@ class AuthController extends Controller
 
             $data['password'] = bcrypt($data['password']);
             $user = $this->user->create($data);
-            return response()->json($user, 200);
+            
+            $token = $user->createToken($data['email']);
+
+            return response()->json(['token' => $token->plainTextToken], 200);
 
         } catch (\Exception $e) {
             return response()->json($e);
