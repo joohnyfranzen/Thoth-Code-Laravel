@@ -28,11 +28,14 @@ Route::post('user', [AuthController::class, 'store'])->name('user');
 
 // Post unprotected Routes
 Route::get('post', [PostController::class, 'index'])->name('post');
-Route::get('post/:id', [PostController::class, 'show'])->name('post');
+Route::get('post/{id}', [PostController::class, 'show'])->name('post');
 
 // Protected Routes
 Route::middleware('auth:sanctum')->group(function() {
 
+    Route::resource('/user', AuthController::class)->except('create', 'edit', 'store', 'update');
+    Route::put('/user/{id}', [AuthController::class, 'update']);
+
     // Post Resource Routes
-    Route::resource('/post', PostController::class)->except('index', 'show', 'create', 'edit', 'store');
+    Route::resource('/post', PostController::class)->except('index', 'show', 'create', 'edit');
 });
