@@ -41,31 +41,77 @@ class PostController extends Controller
         }
     }
 
+    // Show a Post by Id
     public function show($id)
     {
-        //
+
+        try {
+            $user = $this->post->findOrFail($id);
+
+            return response()->json([
+                'data' => [
+                    'msg' => $user
+                ]
+                ], 200);
+
+            } catch (\Exception $e) {
+                return response()->json($e);
+            }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    // Update a Post by Id
+    public function update(PostRequest $request, $id)
     {
-        //
+        $data = $request->all();
+
+        try {
+
+            $post = $this->post->findOrFail($id);
+            $post->update($data);
+
+            return response()->json([
+                'data' => [
+                    'msg' => $post
+                ]
+                ], 200);
+ 
+        } catch (\Exception $e) {
+            return response()->json($e);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Delete a post bu Id
     public function destroy($id)
     {
-        //
+        try {
+            $post = $this->post->findOrFail($id);
+            $post->delete();
+
+            return response()->json([
+                'data' => [
+                    'msg' => 'Post Deleted'
+                ]
+                ], 200);
+
+            } catch (\Exception $e) {
+                return response()->json($e);
+            }
+    }
+
+    public function userIndex() 
+    {
+        
+        try {
+            $user = Auth::user()->post->paginate('5');
+
+            return response()->json([
+                'data' => [
+                    'msg' => $user
+                ]
+                ], 200);
+
+            } catch (\Exception $e) {
+                return response()->json($e);
+            }
     }
 }
