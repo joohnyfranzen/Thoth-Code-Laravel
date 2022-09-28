@@ -48,11 +48,7 @@ class PostController extends Controller
         try {
             $user = $this->post->findOrFail($id);
 
-            return response()->json([
-                'data' => [
-                    'msg' => $user
-                ]
-                ], 200);
+            return response()->json($user, 200);
 
             } catch (\Exception $e) {
                 return response()->json($e);
@@ -102,13 +98,9 @@ class PostController extends Controller
     {
         
         try {
-            $user = Auth::user()->post->paginate('5');
+            $user = Auth::user()->post()->paginate('5');
 
-            return response()->json([
-                'data' => [
-                    'msg' => $user
-                ]
-                ], 200);
+            return response()->json($user, 200);
 
             } catch (\Exception $e) {
                 return response()->json($e);

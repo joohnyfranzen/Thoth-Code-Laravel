@@ -39,5 +39,5 @@ Route::middleware('auth:sanctum')->group(function() {
     // Post Resource Routes
     Route::resource('/post', PostController::class)->except('index', 'show', 'create', 'edit');
 
-    Route::get('/myposts', [PostController::class, 'userIndex']);
+    Route::get('/myposts', [PostController::class, 'userIndex'])->name('myposts');
 });
