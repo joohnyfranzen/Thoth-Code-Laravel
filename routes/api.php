@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PostCommentController;
 use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,4 +41,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::resource('/post', PostController::class)->except('index', 'show', 'create', 'edit');
 
     Route::get('/myposts', [PostController::class, 'userIndex'])->name('myposts');
+
+    Route::resource('/postcomment', PostCommentController::class);
 });
