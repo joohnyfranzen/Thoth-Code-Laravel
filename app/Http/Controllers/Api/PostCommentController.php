@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostCommentRequest;
+use App\Models\PostComment;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostCommentController extends Controller
 {
@@ -12,9 +16,15 @@ class PostCommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        try{
+            $comments = PostComment::where('post_id', $id)->with('userComment')->get();
+
+            return response()->json($comments);
+        } catch(\Exception $e) {
+            return response()->json($e);
+        }
     }
 
     /**
@@ -23,9 +33,17 @@ class PostCommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostCommentRequest $request)
     {
-        //
+        $data = $request->all();
+
+        try {
+            $comment = Auth::user()->comment()->create($data);
+
+            return response()->json($comment);
+        } catch(\Exception $e) {
+            return response()->json($e);
+        }
     }
 
     /**
@@ -46,9 +64,19 @@ class PostCommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostCommentRequest $request, $id)
     {
-        //
+        $data = $request->all();
+
+        try {
+            $update = PostComment::findOrFail($id)->first();
+            $update->update($data);
+
+            return response()->json($update);
+
+        } catch(\Exception $e) {
+            return response()->json($e);
+        }
     }
 
     /**
@@ -59,6 +87,13 @@ class PostCommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $comment = PostComment::findOrFail($id)->first();
+            $comment->delete();
+
+            return response()->json($comment);
+        } catch(\Exception $e) {
+            return response()->json($e);
+        }
     }
 }

@@ -10,9 +10,15 @@ class PostComment extends Model
     use HasFactory;
 
     protected $fillable = [
-
-        'like',
         'comment',
+        'post_id',
     ];
-    
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
+    public function userComment()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

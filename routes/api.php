@@ -31,16 +31,19 @@ Route::post('user', [AuthController::class, 'store'])->name('user');
 Route::get('post', [PostController::class, 'index'])->name('post');
 Route::get('post/{id}', [PostController::class, 'show'])->name('post');
 
+Route::get('/postcomment/{id}', [PostCommentController::class, 'index'])->name('postcomment');
+
 // Protected Routes
 Route::middleware('auth:sanctum')->group(function() {
-
+    
     Route::resource('/user', AuthController::class)->except('create', 'edit', 'store', 'update');
     Route::put('/user/{id}', [AuthController::class, 'update']);
-
+    
     // Post Resource Routes
     Route::resource('/post', PostController::class)->except('index', 'show', 'create', 'edit');
-
+    
     Route::get('/myposts', [PostController::class, 'userIndex'])->name('myposts');
-
-    Route::resource('/postcomment', PostCommentController::class);
+    
+    Route::post('/postcomment/{id}', [PostCommentController::class, 'store'])->name('postcomment');
+    Route::resource('/postcomment', PostCommentController::class)->except('show', 'store', 'create', 'index', 'edit',);
 });
