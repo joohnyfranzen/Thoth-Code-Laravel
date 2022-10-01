@@ -43,7 +43,5 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::resource('/post', PostController::class)->except('index', 'show', 'create', 'edit');
     
     Route::get('/myposts', [PostController::class, 'userIndex'])->name('myposts');
-    
-    Route::post('/postcomment/{id}', [PostCommentController::class, 'store'])->name('postcomment');
-    Route::resource('/postcomment', PostCommentController::class)->except('show', 'store', 'create', 'index', 'edit',);
+        Route::resource('/postcomment', PostCommentController::class)->except('show', 'create', 'index', 'edit',);
 });
