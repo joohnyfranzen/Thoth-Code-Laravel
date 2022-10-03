@@ -1,66 +1,92 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Project developed in september 2022 
 
-## About Laravel
+Api Developed in Laravel and React, the front end that was used can be found here https://github.com/joohnyfranzen/Thoth-Code-React 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Application testing requirements
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Laravel 9
+- Php 8
+- This Project Clone
+- React Project Clone
 
-## Learning Laravel
+### How to inicializate it
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. In the terminal type ```git clone https://github.com/joohnyfranzen/Thoth-Code-Laravel/```
+2. Type the command "composer install". It will install all necessary php packages.
+3. After installing the dependencies you modify .env.
+4. Finally with the command ```php artisan serve``` run the project.
+5. Then you clone the React App ```git clone https://github.com/joohnyfranzen/Thoth-Code-React/```
+6. Install it dependencies with ```npm install```
+7. Start the project with npm start.
+8. Have fun.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### About the project
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Seeing the need to understand the architecture of the laravel framework, I tried to make a REST Api consuming the database of this project in the React project that you can acess up here.
 
-## Laravel Sponsors
+2. In this project I used Axios to consume in React the database.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+3. The project itself its a social network, that have authentication with Auth Sanctum, I learned a lot of React by using its framework, there are many useful things inside of it, and its a start for working in a larger project.
 
-### Premium Partners
+### Database:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+- Users - Foreign - ( ( 'user_id' on 'real_state ) ( 'user_id' on 'user_profile' ) )
+1. name
+2. email
+3. email_verified_at
+4. password
 
-## Contributing
+- Post 
+1. title
+2. slug
+3. content
+4. user-_id
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Post Comments 
+1. coment
+2. user_id
+3. post_id
 
-## Code of Conduct
+### Routes:
+```
+- _/api/v1
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. User
 
-## Security Vulnerabilities
+- _ /users _
+[GET] '/user' - INDEX
+[GET] '/user/:id' - SHOW
+[POST] '/user' - STORE
+[PUT] '/user/:id' - UPDATE
+[DELETE] '/user/:id' - DELETE
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+2. Auth
 
-## License
+[POST] '/login' - LOGIN
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+3. Posts
+
+- _ /post _
+[GET] '/post' - INDEX
+[GET] 'post/:id' - SHOW
+[POST] 'post/' - STORE
+[PUT] 'post/:id' - UPDATE
+[DELETE] 'post/:id' - DELETE
+
+4. Post Comment
+
+_ /postcomment _ 
+[GET] '/postcomment' - INDEX
+[GET] '/postcomment/:id' - SHOW
+[POST] '/postcomment' - STORE
+[PUT] '/postcomment/:id' - UPDATE
+[DELETE] '/postcomment/:id' - DELETE
+
+
+
+```
+
+
