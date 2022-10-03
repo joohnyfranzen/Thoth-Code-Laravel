@@ -9,6 +9,8 @@ Api Developed in Laravel and React, the front end that was used can be found her
 
 - Laravel 9
 - Php 8
+- React 18.2
+- Yarn 1.2
 - This Project Clone
 - React Project Clone
 
